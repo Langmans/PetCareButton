@@ -21,10 +21,11 @@ local ADDON_NAME, ns = ...
 
 local L = ns.L
 
--- Per alert: the spell it points to, and the locale keys of its title and reason.
----@type table<PetCareButtonAlertKey, {spell: number, title: string, reason: string}>
+-- Per alert: the spell it points to, the locale keys of its title and reason, and for the dead
+-- pet the raid warning instead of its attack call.
+---@type table<PetCareButtonAlertKey, {spell: number, title: string, reason: string, sound: "warning"?}>
 local ALERTS = {
-    dead = { spell = ns.REVIVE_PET, title = "TOAST_DEAD", reason = "REASON_DEAD" },
+    dead = { spell = ns.REVIVE_PET, title = "TOAST_DEAD", reason = "REASON_DEAD", sound = "warning" },
     nopet = { spell = ns.CALL_PET, title = "TOAST_NOPET", reason = "REASON_NOPET" },
     low = { spell = ns.MEND_PET, title = "TOAST_LOW", reason = "REASON_LOW" },
 }
@@ -56,6 +57,7 @@ function ns.AlertToast(key, reason, percent)
         icon = icon,
         reason = reason or L[alert.reason],
         hint = ns.PressHint(),
+        sound = alert.sound,
     }
 end
 

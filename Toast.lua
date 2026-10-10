@@ -286,11 +286,14 @@ frame:SetScript("OnMouseUp", function(
     if button == "RightButton" then ns.HideToast() end
 end)
 
----The sound for a toast, as the sound setting asks: the pet out's call, or the raid warning.
-local function PlayToastSound()
+---The sound for a toast, as the sound setting asks: the pet out's call, or the raid warning. A
+---toast that asks for the warning (the dead pet's: its attack call would be out of place) gets
+---the warning in family mode too.
+---@param info PetCareButtonToastInfo
+local function PlayToastSound(info)
     local mode = ns.db.sound
     if mode == "off" then return end
-    local familyID = mode == "family" and ns.PetFamilyID()
+    local familyID = mode == "family" and info.sound ~= "warning" and ns.PetFamilyID()
     local familySound = familyID and FAMILY_SOUNDS[familyID]
     if familySound then
         PlaySoundFile(familySound, "Master")
@@ -320,7 +323,7 @@ function Display(info)
     frame:SetScript("OnUpdate", Animate)
     frame:Show()
 
-    PlayToastSound()
+    PlayToastSound(info)
 end
 
 ---The position in the queue of the toast for `key`, or nil.

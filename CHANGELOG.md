@@ -9,7 +9,9 @@
 - A failed Call Pet, or "Your pet is dead", switches the button to Revive
   Pet; a Revive Pet that fails at once switches it back.
 - Toasts when your pet dies, when combat starts without a pet, and when its
-  health drops to 40% (`/pcb low`), each naming the spell and the key.
+  health drops to 40% (`/pcb low`), each naming the spell and the key. They
+  play your pet's call, except the dead-pet toast, which plays the raid
+  warning.
 - The `PetCare` macro is made once per hunter, at the first login (account-wide
   only when the character macros are full); `/pcb macro` makes it again. Its
   icon follows the button, also once a dead pet's body is gone; after a death

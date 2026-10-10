@@ -41,6 +41,7 @@
 ---@field icon (number|string)? texture; the Call Pet icon when nil
 ---@field reason string? what happened
 ---@field hint string? how to press the button
+---@field sound "warning"? the raid warning even when the sound setting is the pet's call
 
 ---A font string with eight faint copies around it (Toast.lua); every setter goes to all nine
 ---through its Set method.

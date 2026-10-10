@@ -105,7 +105,8 @@ dead is saved per character. The same settings are chat commands too
 - `/pcb duration <seconds>` (default 6) and `/pcb scale <0.3-3>` (default
   1).
 - `/pcb sound family|warning|off`: your pet's call (default), the raid
-  warning, or nothing.
+  warning, or nothing. The dead-pet toast plays the raid warning with
+  `family` too; its attack call would be out of place.
 - `/pcb reset` puts the toast back in its standard spot.
 - `/pcb debug` switches the debug trace on or off.
 
@@ -231,6 +232,9 @@ choice is therefore made entirely by secure code:
   above. A value `canaccessvalue` refuses (Forever hides some values in
   combat) decides nothing.
 - A living pet (`alive`) takes away `dead` and `nopet`.
+- The `dead` toast carries `sound = "warning"`, so `Toast.lua` plays the raid
+  warning (SoundKit 8959) instead of the family's aggro sound, unless sound
+  is off.
 - Failed casts: `UNIT_SPELLCAST_FAILED` for Call Pet (883) without a pet and
   not mounted, or a `UI_ERROR_MESSAGE` equal to `ERR_PET_SPELL_DEAD` or
   `PETTAME_DEAD`, marks the pet dead. `UNIT_SPELLCAST_FAILED` for Revive Pet
