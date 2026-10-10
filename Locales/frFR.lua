@@ -38,8 +38,11 @@ ns.Locales.frFR = {
         MODE_SET_CALL = "Votre familier compte comme vivant : sans familier, le bouton lance Appel du familier.",
         IN_COMBAT = "Pas en combat ; réessayez à la fin du combat.",
         MACRO_EXISTS = "Une macro nommée %s existe déjà.",
-        MACRO_FULL = "Vos macros de compte sont pleines.",
-        MACRO_CREATED = "Macro %s créée : faites-la glisser de la fenêtre des macros (/macro) vers une barre d'action.",
+        MACRO_FULL = "Vos macros de personnage et de compte sont pleines.",
+        MACRO_CREATED = "Macro %s créée pour ce personnage : faites-la glisser de la fenêtre des macros (/macro) "
+            .. "vers une barre d'action.",
+        MACRO_CREATED_ACCOUNT = "Macro %s créée parmi les macros de compte, celles de ce personnage étant pleines : "
+            .. "faites-la glisser de la fenêtre des macros (/macro) vers une barre d'action.",
         SOUND_FAMILY = "Son : le cri de votre familier, comme quand vous l'envoyez attaquer (l'avertissement de raid "
             .. "s'il n'en a pas).",
         SOUND_WARNING = "Son : l'avertissement de raid.",

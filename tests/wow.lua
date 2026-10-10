@@ -58,8 +58,10 @@ function NewClient(opts)
         blocked = {},
         -- Key bindings: action -> key.
         bindings = {},
-        -- The account-wide macros: { name, icon, body }.
+        -- The account-wide and this character's macros: { name, icon, body }. Indexes run as in
+        -- the client: account macros from 1, character macros from MAX_ACCOUNT_MACROS + 1.
         macros = {},
+        charMacros = {},
         drivers = {},
         inCombat = opts.inCombat == true,
     }
@@ -146,20 +148,57 @@ function NewClient(opts)
         return "<" .. key .. ">"
     end
 
-    MAX_ACCOUNT_MACROS = 120
+    -- opts.noMacroConsts: a client without Constants.MacroConsts, where the addon's own limits
+    -- (120 account, 18 character) apply.
+    local MAX_ACCOUNT, MAX_CHARACTER = 120, opts.noMacroConsts and 18 or 30
+    Constants = not opts.noMacroConsts
+            and { MacroConsts = { MAX_ACCOUNT_MACROS = MAX_ACCOUNT, MAX_CHARACTER_MACROS = MAX_CHARACTER } }
+        or nil
+    ---The macro at a client index, or nil.
+    local function macroAt(index)
+        if index > MAX_ACCOUNT then return client.charMacros[index - MAX_ACCOUNT] end
+        return client.macros[index]
+    end
     function GetMacroIndexByName(name)
         for i, macro in ipairs(client.macros) do
             if macro.name == name then return i end
         end
+        for i, macro in ipairs(client.charMacros) do
+            if macro.name == name then return MAX_ACCOUNT + i end
+        end
         return 0
     end
     function GetNumMacros()
-        return #client.macros, 0
+        return #client.macros, #client.charMacros
     end
+    function GetMacroInfo(index)
+        local macro = macroAt(index)
+        if macro then return macro.name, macro.icon, macro.body end
+    end
+    -- client.macroEdits counts the edits, so tests can see an edit that changed nothing was skipped.
+    client.macroEdits = 0
     function CreateMacro(name, icon, body, perCharacter)
-        assert(not perCharacter, "the addon makes an account-wide macro")
-        client.macros[#client.macros + 1] = { name = name, icon = icon, body = body }
-        return #client.macros
+        assert(not client.inCombat, "macros are not made in combat")
+        local list = perCharacter and client.charMacros or client.macros
+        assert(#list < (perCharacter and MAX_CHARACTER or MAX_ACCOUNT), "no free macro slot")
+        list[#list + 1] = { name = name, icon = icon, body = body }
+        return perCharacter and MAX_ACCOUNT + #list or #list
+    end
+    function EditMacro(index, name, icon, body)
+        if client.inCombat then
+            client.blocked[#client.blocked + 1] = "EditMacro"
+            return
+        end
+        local macro = assert(macroAt(index), "no macro at " .. index)
+        macro.name, macro.icon, macro.body = name or macro.name, icon or macro.icon, body or macro.body
+        client.macroEdits = client.macroEdits + 1
+        client:fire("UPDATE_MACROS")
+        return index
+    end
+    ---This character's PetCare macro's body, or the account one's, or nil.
+    function client:macroBody()
+        local index = GetMacroIndexByName("PetCare")
+        return index > 0 and macroAt(index).body or nil
     end
 
     -- Macro conditions, as far as the addon uses them: [@pet], dead, exists, nopet, mod:shift,

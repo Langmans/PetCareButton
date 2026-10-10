@@ -23,18 +23,6 @@ local COMMAND_LIST = table.concat({
     "/pcb debug",
 }, ", ") .. "."
 
--- The macro /pcb macro creates.
-ns.MACRO_NAME = "PetCare"
--- INV_Misc_QuestionMark: the icon a macro gets when #showtooltip picks the spell's own.
-local MACRO_ICON = 134400
-
----The macro's text: the tooltip and icon follow the macro conditions, the click does the rest.
----@return string
-function ns.MacroBody()
-    local mend, revive, call = ns.SpellName(ns.MEND_PET), ns.SpellName(ns.REVIVE_PET), ns.SpellName(ns.CALL_PET)
-    return ("#showtooltip [@pet,dead] %s; [nopet] %s; %s\n/click PetCareButton"):format(revive, call, mend)
-end
-
 ---The first word of what was typed after the subcommand, lower case.
 ---@param rest string
 ---@return string
@@ -164,14 +152,18 @@ function Commands.call()
     SetMode(false, L.MODE_SET_CALL)
 end
 
----/pcb macro: creates the account-wide macro that clicks the button, outside combat.
+-- What /pcb macro answers for each outcome of ns.CreatePetMacro.
+local MACRO_ANSWERS = {
+    character = "MACRO_CREATED",
+    account = "MACRO_CREATED_ACCOUNT",
+    exists = "MACRO_EXISTS",
+    full = "MACRO_FULL",
+    combat = "IN_COMBAT",
+}
+
+---/pcb macro: makes the macro that clicks the button, outside combat.
 function Commands.macro()
-    if InCombatLockdown() then return Print(L.IN_COMBAT) end
-    if GetMacroIndexByName(ns.MACRO_NAME) > 0 then return Print(ns.Format("MACRO_EXISTS", ns.MACRO_NAME)) end
-    local accountMacros = GetNumMacros()
-    if accountMacros >= (MAX_ACCOUNT_MACROS or 120) then return Print(L.MACRO_FULL) end
-    CreateMacro(ns.MACRO_NAME, MACRO_ICON, ns.MacroBody(), false)
-    Print(ns.Format("MACRO_CREATED", ns.MACRO_NAME))
+    Print(ns.Format(MACRO_ANSWERS[ns.CreatePetMacro()], ns.MACRO_NAME))
 end
 
 ---/pcb test [dead|nopet|low]: a toast only, whatever the pet is doing.

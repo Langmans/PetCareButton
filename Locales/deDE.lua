@@ -38,8 +38,11 @@ ns.Locales.deDE = {
         MODE_SET_CALL = "Dein Begleiter gilt als lebendig: ohne Begleiter wirkt die Taste Tier rufen.",
         IN_COMBAT = "Nicht im Kampf; versuche es nach dem Kampf erneut.",
         MACRO_EXISTS = "Es gibt schon ein Makro namens %s.",
-        MACRO_FULL = "Deine accountweiten Makros sind voll.",
-        MACRO_CREATED = "Makro %s erstellt: zieh es aus dem Makrofenster (/macro) auf eine Aktionsleiste.",
+        MACRO_FULL = "Deine charakterspezifischen und accountweiten Makros sind beide voll.",
+        MACRO_CREATED = "Makro %s für diesen Charakter erstellt: zieh es aus dem Makrofenster (/macro) "
+            .. "auf eine Aktionsleiste.",
+        MACRO_CREATED_ACCOUNT = "Makro %s bei den accountweiten Makros erstellt, da die dieses Charakters voll "
+            .. "sind: zieh es aus dem Makrofenster (/macro) auf eine Aktionsleiste.",
         SOUND_FAMILY = "Ton: der Ruf deines Begleiters, wie beim Angriffsbefehl (ohne einen die Schlachtzugswarnung).",
         SOUND_WARNING = "Ton: die Schlachtzugswarnung.",
         SOUND_OFF = "Ton aus.",

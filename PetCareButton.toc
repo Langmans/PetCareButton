@@ -19,6 +19,7 @@ Locale.lua
 Core.lua
 Toast.lua
 Button.lua
+Macro.lua
 Alerts.lua
 Commands.lua
 Options.lua

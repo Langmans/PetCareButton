@@ -37,8 +37,11 @@ ns.Locales.esES = {
         MODE_SET_CALL = "Tu mascota cuenta como viva: sin mascota el botón lanza Llamar a mascota.",
         IN_COMBAT = "No en combate; inténtalo de nuevo cuando termine.",
         MACRO_EXISTS = "Ya hay una macro llamada %s.",
-        MACRO_FULL = "Tus macros de cuenta están llenas.",
-        MACRO_CREATED = "Macro %s creada: arrástrala desde la ventana de macros (/macro) a una barra de acción.",
+        MACRO_FULL = "Tus macros de personaje y de cuenta están llenas.",
+        MACRO_CREATED = "Macro %s creada para este personaje: arrástrala desde la ventana de macros (/macro) "
+            .. "a una barra de acción.",
+        MACRO_CREATED_ACCOUNT = "Macro %s creada entre las macros de cuenta, porque las de este personaje están "
+            .. "llenas: arrástrala desde la ventana de macros (/macro) a una barra de acción.",
         SOUND_FAMILY = "Sonido: el grito de tu mascota, como al mandarla atacar (el aviso de banda si no tiene).",
         SOUND_WARNING = "Sonido: el aviso de banda.",
         SOUND_OFF = "Sonido desactivado.",

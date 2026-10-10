@@ -47,8 +47,10 @@ ns.Locales.enUS = {
         MODE_SET_CALL = "Your pet counts as alive: without a pet the button casts Call Pet.",
         IN_COMBAT = "Not in combat; try again when it ends.",
         MACRO_EXISTS = "There is a macro named %s already.",
-        MACRO_FULL = "Your account-wide macros are full.",
-        MACRO_CREATED = "Macro %s made: drag it from the macro window (/macro) onto an action bar.",
+        MACRO_FULL = "Your character macros and account-wide macros are both full.",
+        MACRO_CREATED = "Macro %s made for this character: drag it from the macro window (/macro) onto an action bar.",
+        MACRO_CREATED_ACCOUNT = "Macro %s made among the account-wide macros, since this character's are full: "
+            .. "drag it from the macro window (/macro) onto an action bar.",
         SOUND_FAMILY = "Sound: your pet's call, as when you send it to attack (the raid warning when it has none).",
         SOUND_WARNING = "Sound: the raid warning.",
         SOUND_OFF = "Sound off.",

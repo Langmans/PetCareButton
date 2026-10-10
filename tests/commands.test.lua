@@ -80,31 +80,6 @@ test("/pcb low raised over the pet's health toasts at once", function()
     eq(client:toastTitle(), "Your pet is at 50% health")
 end)
 
-test("/pcb macro makes the account-wide macro once", function()
-    local client = NewClient():login():slash("macro")
-    eq(#client.macros, 1)
-    eq(client.macros[1].name, "PetCare")
-    eq(client.macros[1].icon, 134400)
-    eq(client.macros[1].body, "#showtooltip [@pet,dead] Revive Pet; [nopet] Call Pet; Mend Pet\n/click PetCareButton")
-    ok(client:printedContains("Macro PetCare made"))
-    client:slash("macro")
-    eq(#client.macros, 1)
-    ok(client:printedContains("There is a macro named PetCare already."))
-end)
-
-test("/pcb macro with full macros or in combat makes nothing", function()
-    local client = NewClient():login()
-    for i = 1, 120 do
-        client.macros[i] = { name = "M" .. i }
-    end
-    client:slash("macro")
-    eq(#client.macros, 120)
-    ok(client:printedContains("Your account-wide macros are full."))
-    client = NewClient():login():enterCombat():slash("macro")
-    eq(#client.macros, 0)
-    ok(client:printedContains("Not in combat"))
-end)
-
 test("/pcb test shows a toast of each kind without touching real ones", function()
     local client = NewClient():login():slash("test")
     eq(client:toastTitle(), "Your pet is dead")
