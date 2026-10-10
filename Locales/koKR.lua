@@ -23,7 +23,7 @@ ns.Locales.koKR = {
         MODE_REVIVE = "동물 되살리기",
         MODE_CALL = "야수 부르기",
         LOW_PERCENT = "%d%%",
-        SOUND_NAME_FAMILY = "소환수 울음소리",
+        SOUND_NAME_FAMILY = "소환수 소리",
         SOUND_NAME_WARNING = "공격대 경보",
         NOT_HUNTER = "동물 치료, 동물 되살리기, 야수 부르기는 사냥꾼만 가지고 있습니다. "
             .. "이 캐릭터에서는 버튼이 아무것도 하지 않습니다.",
@@ -41,7 +41,8 @@ ns.Locales.koKR = {
         MACRO_CREATED = "이 캐릭터용 %s 매크로를 만들었습니다: 매크로 창(/macro)에서 행동 단축바로 끌어 놓으세요.",
         MACRO_CREATED_ACCOUNT = "이 캐릭터의 매크로가 가득 차서 계정 공용 매크로에 %s 매크로를 만들었습니다: "
             .. "매크로 창(/macro)에서 행동 단축바로 끌어 놓으세요.",
-        SOUND_FAMILY = "소리: 공격 명령 때처럼 소환수의 울음소리 (없으면 공격대 경보).",
+        SOUND_FAMILY = "소리: 소환수 자신의 소리: 죽을 때 죽음 소리, 생명력이 낮을 때 고통 소리, "
+            .. "그 외에는 공격 울음소리 (없으면 공격대 경보).",
         SOUND_WARNING = "소리: 공격대 경보.",
         SOUND_OFF = "소리 꺼짐.",
         DURATION_SET = "알림 시간: %d초.",
@@ -68,7 +69,7 @@ ns.Locales.koKR = {
         OPTION_NOPET = "소환수 없이 전투가 시작되면 알림",
         OPTION_NOPET_NOTE = "/pcb nopet on, off와 같습니다.",
         OPTION_SOUND = "소리",
-        OPTION_SOUND_FAMILY = "공격 명령 때처럼 소환수의 울음소리 (없으면 공격대 경보)",
+        OPTION_SOUND_FAMILY = "소환수 자신의 소리: 죽음, 고통, 공격 (없으면 공격대 경보)",
         OPTION_SOUND_WARNING = "공격대 경보",
         OPTION_SOUND_OFF = "소리 없음",
         OPTION_DEBUG = "디버그 기록",

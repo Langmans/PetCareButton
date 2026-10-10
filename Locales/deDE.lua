@@ -24,7 +24,7 @@ ns.Locales.deDE = {
         MODE_REVIVE = "Tier wiederbeleben",
         MODE_CALL = "Tier rufen",
         LOW_PERCENT = "bei %d%%",
-        SOUND_NAME_FAMILY = "Ruf des Begleiters",
+        SOUND_NAME_FAMILY = "Laute des Begleiters",
         SOUND_NAME_WARNING = "Schlachtzugswarnung",
         NOT_HUNTER = "Nur Jäger haben Tier heilen, Tier wiederbeleben und Tier rufen; "
             .. "auf diesem Charakter tut die Taste nichts.",
@@ -43,7 +43,8 @@ ns.Locales.deDE = {
             .. "auf eine Aktionsleiste.",
         MACRO_CREATED_ACCOUNT = "Makro %s bei den accountweiten Makros erstellt, da die dieses Charakters voll "
             .. "sind: zieh es aus dem Makrofenster (/macro) auf eine Aktionsleiste.",
-        SOUND_FAMILY = "Ton: der Ruf deines Begleiters, wie beim Angriffsbefehl (ohne einen die Schlachtzugswarnung).",
+        SOUND_FAMILY = "Ton: die Laute deines Begleiters: sein Todeslaut, wenn er stirbt, sein Schmerzensschrei bei "
+            .. "wenig Gesundheit, sonst sein Angriffsruf (ohne einen die Schlachtzugswarnung).",
         SOUND_WARNING = "Ton: die Schlachtzugswarnung.",
         SOUND_OFF = "Ton aus.",
         DURATION_SET = "Anzeigedauer: %d Sekunden.",
@@ -71,7 +72,8 @@ ns.Locales.deDE = {
         OPTION_NOPET = "Anzeige, wenn der Kampf ohne Begleiter beginnt",
         OPTION_NOPET_NOTE = "Wie /pcb nopet on und off.",
         OPTION_SOUND = "Ton",
-        OPTION_SOUND_FAMILY = "Der Ruf deines Begleiters, wie beim Angriffsbefehl (ohne einen die Schlachtzugswarnung)",
+        OPTION_SOUND_FAMILY = "Die Laute deines Begleiters: Todeslaut, Schmerzensschrei, Angriffsruf "
+            .. "(ohne einen die Schlachtzugswarnung)",
         OPTION_SOUND_WARNING = "Die Schlachtzugswarnung",
         OPTION_SOUND_OFF = "Kein Ton",
         OPTION_DEBUG = "Debug-Ausgabe",

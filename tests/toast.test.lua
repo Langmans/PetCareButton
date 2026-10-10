@@ -89,40 +89,72 @@ test("scale, and a toast without a name, icon or lines", function()
     eq(client.toast.Hint.text, "")
 end)
 
-local function showLow(client)
-    client.ns.ShowToast(client.ns.AlertToast("low", nil, 30))
+local function showNoPet(client)
+    client.ns.ShowToast(client.ns.AlertToast("nopet"))
     return client
 end
 
 test("the sound is the pet's call, as when it is sent to attack", function()
-    local client = showLow(NewClient():login())
+    local client = showNoPet(NewClient():login())
     eq(client.sounds[1].file, 562387, "a cat's aggro sound")
     eq(client.sounds[1].channel, "Master")
 end)
 
-test("a dead pet's toast plays the raid warning instead of its call", function()
+test("low health plays the pet's critical wound sound", function()
+    local client = NewClient():login():petHealth(20)
+    eq(client.sounds[1].file, 562395, "a cat's critical wound")
+    client = NewClient():login()
+    client.familyID = 25
+    client:petHealth(20)
+    eq(client.sounds[1].file, 552336, "a hyena has one")
+    client = NewClient():login()
+    client.familyID = 24
+    client:petHealth(20)
+    eq(client.sounds[1].id, 8959, "a bat has none: the raid warning")
+end)
+
+test("a dead pet's toast plays its death sound instead of its call", function()
     local client = showDead(NewClient():login())
-    eq(client.sounds[1].id, 8959)
+    eq(client.sounds[1].file, 562391, "a cat's death sound")
     eq(client.sounds[1].channel, "Master")
     client = showDead(NewClient({ savedDB = { sound = "off" } }):login())
     eq(#client.sounds, 0, "sound off is still off")
+    client = showDead(NewClient({ savedDB = { sound = "warning" } }):login())
+    eq(client.sounds[1].id, 8959, "sound warning is still the warning")
+end)
+
+test("a family without a death sound, or a body already gone, plays the raid warning", function()
+    local client = NewClient():login()
+    client.familyID = 25
+    showDead(client)
+    eq(client.sounds[1].id, 8959, "a hyena")
+    client.ns.HideToast()
+    client.familyID = 2
+    client.pet = nil
+    showDead(client)
+    eq(client.sounds[2].id, 8959)
+end)
+
+test("the pet dying plays its death sound", function()
+    local client = NewClient():login():petDies()
+    eq(client.sounds[1].file, 562391)
 end)
 
 test("a family without a call, or no pet, plays the raid warning", function()
     local client = NewClient():login()
     client.familyID = 24
-    showLow(client)
+    showNoPet(client)
     eq(client.sounds[1].id, 8959)
     client.ns.HideToast()
     client.pet = nil
-    showLow(client)
+    showNoPet(client)
     eq(client.sounds[2].id, 8959)
 end)
 
 test("sound warning always plays the raid warning, sound off nothing", function()
-    local client = showLow(NewClient({ savedDB = { sound = "warning" } }):login())
+    local client = showNoPet(NewClient({ savedDB = { sound = "warning" } }):login())
     eq(client.sounds[1].id, 8959)
-    client = showLow(NewClient({ savedDB = { sound = "off" } }):login())
+    client = showNoPet(NewClient({ savedDB = { sound = "off" } }):login())
     eq(#client.sounds, 0)
 end)
 

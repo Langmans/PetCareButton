@@ -44,6 +44,51 @@ local FAMILY_SOUNDS = {
     [27] = 559967, -- Wind Serpent: sound/creature/serpent/serpentaggro.ogg
 }
 
+-- The death sound of each pet family, for the dead pet's toast: the same creature folders as the
+-- aggro sounds, FileDataIDs from the wowdev/wow-listfile verified listfile. Hyena (25) has only
+-- the later mon_hyena_v2 files, and Crocolisk, Scorpid and Bat have none of their own: those get
+-- the raid warning.
+---@type table<number, number>
+local FAMILY_DEATH_SOUNDS = {
+    [1] = 564219, -- Wolf: sound/creature/wolf/mwolfdeath1.ogg
+    [2] = 562391, -- Cat: sound/creature/tiger/mtigerdeatha.ogg
+    [3] = 561420, -- Spider: sound/creature/tarantula/mtarantuladeath1a.ogg
+    [4] = 544952, -- Bear: sound/creature/bear/mbeardeatha.ogg
+    [5] = 545132, -- Boar: sound/creature/boar/mwildboardeath1.ogg
+    [7] = 545944, -- Carrion Bird: sound/creature/carrion/mcarriondeatha.ogg
+    [8] = 546431, -- Crab: sound/creature/crab/crabdeatha.ogg
+    [9] = 550959, -- Gorilla: sound/creature/gorilla/gorilladeatha.ogg
+    [11] = 558876, -- Raptor: sound/creature/raptor/mraptordeatha.ogg
+    [12] = 561391, -- Tallstrider: sound/creature/tallstrider/tallstriderdeatha.ogg
+    [21] = 559874, -- Turtle: sound/creature/seaturtle/seaturtledeatha.ogg
+    [26] = 557976, -- Bird of Prey: sound/creature/owl/owldeath.ogg
+    [27] = 559971, -- Wind Serpent: sound/creature/serpent/serpentdeath.ogg
+}
+
+-- The critical wound sound of each pet family, for the low-health toast: same folders, same
+-- listfile. Crocolisk, Scorpid and Bat have none of their own: those get the raid warning.
+---@type table<number, number>
+local FAMILY_WOUND_SOUNDS = {
+    [1] = 564231, -- Wolf: sound/creature/wolf/mwolfwoundcritical1.ogg
+    [2] = 562395, -- Cat: sound/creature/tiger/mtigerwoundcriticala.ogg
+    [3] = 561419, -- Spider: sound/creature/tarantula/mtarantulawoundcritical1a.ogg
+    [4] = 544958, -- Bear: sound/creature/bear/mbearwoundcriticala.ogg
+    [5] = 545130, -- Boar: sound/creature/boar/mwildboarwoundcritical1.ogg
+    [7] = 545936, -- Carrion Bird: sound/creature/carrion/mcarrionwoundcriticala.ogg
+    [8] = 546422, -- Crab: sound/creature/crab/crabwoundcrit.ogg
+    [9] = 550964, -- Gorilla: sound/creature/gorilla/gorillawoundcrit.ogg
+    [11] = 558875, -- Raptor: sound/creature/raptor/mraptorwoundcriticala.ogg
+    [12] = 561389, -- Tallstrider: sound/creature/tallstrider/tallstriderwoundcrit.ogg
+    [21] = 559875, -- Turtle: sound/creature/seaturtle/seaturtlewoundcrita.ogg
+    [25] = 552336, -- Hyena: sound/creature/hyena/hyenawoundcrit.ogg
+    [26] = 557975, -- Bird of Prey: sound/creature/owl/owlwoundcrit.ogg
+    [27] = 559974, -- Wind Serpent: sound/creature/serpent/serpentwoundcrit.ogg
+}
+
+-- Which table a toast's `sound` picks; the attack call when it names none.
+---@type table<string, table<number, number>>
+local SOUND_TABLES = { death = FAMILY_DEATH_SOUNDS, wound = FAMILY_WOUND_SOUNDS }
+
 -- Intro timings, in seconds.
 local BG_FADE = 0.25
 local CONTENT_DELAY, CONTENT_FADE = 0.10, 0.30
@@ -286,15 +331,17 @@ frame:SetScript("OnMouseUp", function(
     if button == "RightButton" then ns.HideToast() end
 end)
 
----The sound for a toast, as the sound setting asks: the pet out's call, or the raid warning. A
----toast that asks for the warning (the dead pet's: its attack call would be out of place) gets
----the warning in family mode too.
+---The sound for a toast, as the sound setting asks: the pet's own sound, or the raid warning. The
+---pet's own sound is the one the toast asks for (its death sound for the dead pet, its wound sound
+---for low health), or its attack call. Without one for the family, or without a pet (a dead pet
+---whose body is gone), it is the raid warning.
 ---@param info PetCareButtonToastInfo
 local function PlayToastSound(info)
     local mode = ns.db.sound
     if mode == "off" then return end
-    local familyID = mode == "family" and info.sound ~= "warning" and ns.PetFamilyID()
-    local familySound = familyID and FAMILY_SOUNDS[familyID]
+    local familyID = mode == "family" and ns.PetFamilyID()
+    local sounds = SOUND_TABLES[info.sound or ""] or FAMILY_SOUNDS
+    local familySound = familyID and sounds[familyID]
     if familySound then
         PlaySoundFile(familySound, "Master")
     else

@@ -104,9 +104,11 @@ dead is saved per character. The same settings are chat commands too
 - `/pcb test [dead|nopet|low]` shows that toast. Nothing else happens.
 - `/pcb duration <seconds>` (default 6) and `/pcb scale <0.3-3>` (default
   1).
-- `/pcb sound family|warning|off`: your pet's call (default), the raid
-  warning, or nothing. The dead-pet toast plays the raid warning with
-  `family` too; its attack call would be out of place.
+- `/pcb sound family|warning|off`: your pet's own sounds (default), the raid
+  warning, or nothing. Your pet's own: its death sound when it dies, its
+  critical wound cry at low health, its attack call when combat starts
+  without it. Crocolisks, scorpids and bats (and a hyena's death) have no
+  sound the addon knows, and get the raid warning.
 - `/pcb reset` puts the toast back in its standard spot.
 - `/pcb debug` switches the debug trace on or off.
 
@@ -232,9 +234,15 @@ choice is therefore made entirely by secure code:
   above. A value `canaccessvalue` refuses (Forever hides some values in
   combat) decides nothing.
 - A living pet (`alive`) takes away `dead` and `nopet`.
-- The `dead` toast carries `sound = "warning"`, so `Toast.lua` plays the raid
-  warning (SoundKit 8959) instead of the family's aggro sound, unless sound
-  is off.
+- Sounds, by CreatureFamily ID from `UnitCreatureFamily`, as FileDataIDs for
+  `PlaySoundFile`: `dead` carries `sound = "death"` and plays
+  `FAMILY_DEATH_SOUNDS`, `low` carries `sound = "wound"` and plays
+  `FAMILY_WOUND_SOUNDS` (the critical wound), `nopet` plays the aggro sound
+  of `FAMILY_SOUNDS`. All three tables in `Toast.lua` come from the same
+  `sound/creature/<family>/` folders, the IDs from the wowdev/wow-listfile
+  verified listfile, each with its file name. A family missing from the
+  table, or no pet unit (a dead pet whose body is gone), gets the raid
+  warning (SoundKit 8959).
 - Failed casts: `UNIT_SPELLCAST_FAILED` for Call Pet (883) without a pet and
   not mounted, or a `UI_ERROR_MESSAGE` equal to `ERR_PET_SPELL_DEAD` or
   `PETTAME_DEAD`, marks the pet dead. `UNIT_SPELLCAST_FAILED` for Revive Pet

@@ -34,7 +34,7 @@ ns.Locales.enUS = {
         MODE_REVIVE = "Revive Pet",
         MODE_CALL = "Call Pet",
         LOW_PERCENT = "at %d%%",
-        SOUND_NAME_FAMILY = "pet's call",
+        SOUND_NAME_FAMILY = "your pet's own",
         SOUND_NAME_WARNING = "raid warning",
         NOT_HUNTER = "Only hunters have Mend Pet, Revive Pet and Call Pet; the button does nothing on this character.",
         DIED_ON = "A toast when your pet dies.",
@@ -51,7 +51,8 @@ ns.Locales.enUS = {
         MACRO_CREATED = "Macro %s made for this character: drag it from the macro window (/macro) onto an action bar.",
         MACRO_CREATED_ACCOUNT = "Macro %s made among the account-wide macros, since this character's are full: "
             .. "drag it from the macro window (/macro) onto an action bar.",
-        SOUND_FAMILY = "Sound: your pet's call, as when you send it to attack (the raid warning when it has none).",
+        SOUND_FAMILY = "Sound: your pet's own: its death sound when it dies, its wound cry at low health, "
+            .. "its attack call otherwise (the raid warning when it has none).",
         SOUND_WARNING = "Sound: the raid warning.",
         SOUND_OFF = "Sound off.",
         DURATION_SET = "Toast duration: %d seconds.",
@@ -83,7 +84,7 @@ ns.Locales.enUS = {
         OPTION_NOPET = "Toast when combat starts without a pet",
         OPTION_NOPET_NOTE = "Same as /pcb nopet on and off.",
         OPTION_SOUND = "Sound",
-        OPTION_SOUND_FAMILY = "Your pet's call, as when you send it to attack (raid warning when it has none)",
+        OPTION_SOUND_FAMILY = "Your pet's own: death sound, wound cry, attack call (raid warning when it has none)",
         OPTION_SOUND_WARNING = "The raid warning",
         OPTION_SOUND_OFF = "No sound",
         OPTION_DEBUG = "Debug trace",

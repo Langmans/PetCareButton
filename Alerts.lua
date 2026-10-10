@@ -21,13 +21,13 @@ local ADDON_NAME, ns = ...
 
 local L = ns.L
 
--- Per alert: the spell it points to, the locale keys of its title and reason, and for the dead
--- pet the raid warning instead of its attack call.
----@type table<PetCareButtonAlertKey, {spell: number, title: string, reason: string, sound: "warning"?}>
+-- Per alert: the spell it points to, the locale keys of its title and reason, and which of the
+-- pet's sounds it plays instead of its attack call: its death sound, or its wound sound.
+---@type table<PetCareButtonAlertKey, {spell: number, title: string, reason: string, sound: ("death"|"wound")?}>
 local ALERTS = {
-    dead = { spell = ns.REVIVE_PET, title = "TOAST_DEAD", reason = "REASON_DEAD", sound = "warning" },
+    dead = { spell = ns.REVIVE_PET, title = "TOAST_DEAD", reason = "REASON_DEAD", sound = "death" },
     nopet = { spell = ns.CALL_PET, title = "TOAST_NOPET", reason = "REASON_NOPET" },
-    low = { spell = ns.MEND_PET, title = "TOAST_LOW", reason = "REASON_LOW" },
+    low = { spell = ns.MEND_PET, title = "TOAST_LOW", reason = "REASON_LOW", sound = "wound" },
 }
 
 -- The names the client's "Your pet is dead" error may have among the global strings. Unknown

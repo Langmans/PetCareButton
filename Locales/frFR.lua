@@ -24,7 +24,7 @@ ns.Locales.frFR = {
         MODE_REVIVE = "Ressusciter le familier",
         MODE_CALL = "Appel du familier",
         LOW_PERCENT = "à %d%%",
-        SOUND_NAME_FAMILY = "cri du familier",
+        SOUND_NAME_FAMILY = "cris du familier",
         SOUND_NAME_WARNING = "avertissement de raid",
         NOT_HUNTER = "Seuls les chasseurs ont Guérison, Ressusciter et Appel du familier ; "
             .. "le bouton ne fait rien sur ce personnage.",
@@ -43,8 +43,8 @@ ns.Locales.frFR = {
             .. "vers une barre d'action.",
         MACRO_CREATED_ACCOUNT = "Macro %s créée parmi les macros de compte, celles de ce personnage étant pleines : "
             .. "faites-la glisser de la fenêtre des macros (/macro) vers une barre d'action.",
-        SOUND_FAMILY = "Son : le cri de votre familier, comme quand vous l'envoyez attaquer (l'avertissement de raid "
-            .. "s'il n'en a pas).",
+        SOUND_FAMILY = "Son : ceux de votre familier : son cri de mort quand il meurt, son cri de douleur quand sa vie "
+            .. "est basse, sinon son cri d'attaque (l'avertissement de raid s'il n'en a pas).",
         SOUND_WARNING = "Son : l'avertissement de raid.",
         SOUND_OFF = "Son désactivé.",
         DURATION_SET = "Durée de l'alerte : %d secondes.",
@@ -72,7 +72,7 @@ ns.Locales.frFR = {
         OPTION_NOPET = "Alerte quand le combat commence sans familier",
         OPTION_NOPET_NOTE = "Comme /pcb nopet on et off.",
         OPTION_SOUND = "Son",
-        OPTION_SOUND_FAMILY = "Le cri de votre familier, comme à l'ordre d'attaque (avertissement de raid s'il n'en a pas)",
+        OPTION_SOUND_FAMILY = "Les cris de votre familier : mort, douleur, attaque (avertissement de raid s'il n'en a pas)",
         OPTION_SOUND_WARNING = "L'avertissement de raid",
         OPTION_SOUND_OFF = "Pas de son",
         OPTION_DEBUG = "Trace de débogage",

@@ -23,7 +23,7 @@ ns.Locales.esES = {
         MODE_REVIVE = "Revivir mascota",
         MODE_CALL = "Llamar a mascota",
         LOW_PERCENT = "al %d%%",
-        SOUND_NAME_FAMILY = "grito de la mascota",
+        SOUND_NAME_FAMILY = "sonidos de la mascota",
         SOUND_NAME_WARNING = "aviso de banda",
         NOT_HUNTER = "Solo los cazadores tienen Aliviar mascota, Revivir mascota y Llamar a mascota; "
             .. "el botón no hace nada con este personaje.",
@@ -42,7 +42,8 @@ ns.Locales.esES = {
             .. "a una barra de acción.",
         MACRO_CREATED_ACCOUNT = "Macro %s creada entre las macros de cuenta, porque las de este personaje están "
             .. "llenas: arrástrala desde la ventana de macros (/macro) a una barra de acción.",
-        SOUND_FAMILY = "Sonido: el grito de tu mascota, como al mandarla atacar (el aviso de banda si no tiene).",
+        SOUND_FAMILY = "Sonido: los de tu mascota: su sonido de muerte al morir, su grito de dolor con poca salud, "
+            .. "si no su grito de ataque (el aviso de banda si no tiene).",
         SOUND_WARNING = "Sonido: el aviso de banda.",
         SOUND_OFF = "Sonido desactivado.",
         DURATION_SET = "Duración del aviso: %d segundos.",
@@ -70,7 +71,7 @@ ns.Locales.esES = {
         OPTION_NOPET = "Aviso cuando el combate empieza sin mascota",
         OPTION_NOPET_NOTE = "Igual que /pcb nopet on y off.",
         OPTION_SOUND = "Sonido",
-        OPTION_SOUND_FAMILY = "El grito de tu mascota, como al mandarla atacar (aviso de banda si no tiene)",
+        OPTION_SOUND_FAMILY = "Los sonidos de tu mascota: muerte, dolor, ataque (aviso de banda si no tiene)",
         OPTION_SOUND_WARNING = "El aviso de banda",
         OPTION_SOUND_OFF = "Sin sonido",
         OPTION_DEBUG = "Traza de depuración",

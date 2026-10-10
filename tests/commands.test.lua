@@ -4,7 +4,7 @@ test("/pcb alone, or anything unknown, shows the status and the commands", funct
     local client = NewClient():login():slash("")
     ok(client:printedContains("Without a pet the button casts Call Pet."))
     ok(client:printedContains("Toasts: pet died on, no pet at the pull on, low health at 40%."))
-    ok(client:printedContains("Toast for 6 s at scale 1.00, sound pet's call, debug off."))
+    ok(client:printedContains("Toast for 6 s at scale 1.00, sound your pet's own, debug off."))
     ok(client:printedContains("/pcb macro"))
     client.printed = {}
     client:slash("nonsense")
@@ -104,7 +104,7 @@ test("/pcb sound family, on, warning and off", function()
     client:slash("sound on")
     eq(Saved().sound, "family")
     client:slash("sound family")
-    ok(client:printedContains("your pet's call"))
+    ok(client:printedContains("its wound cry at low health"))
     client.printed = {}
     client:slash("sound loud")
     ok(client:printedContains("Commands:"))
