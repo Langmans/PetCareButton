@@ -17,6 +17,10 @@
 ---The per-character settings, ns.char (PetCareButtonCharDB).
 ---@class PetCareButtonCharSettings
 ---@field petDead boolean whether the button counts this character's pet as dead
+---@field macroMade boolean whether the PetCare macro was made (or offered) once for this character
+
+---What making the PetCare macro came to (Macro.lua).
+---@alias PetCareButtonMacroResult "character"|"account"|"exists"|"full"|"combat"
 
 ---What plays with the toast: the pet's own call (the raid warning for a family without one),
 ---always the raid warning, or nothing.

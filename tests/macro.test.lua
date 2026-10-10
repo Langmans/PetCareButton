@@ -100,6 +100,66 @@ test("without the macro, or on another class, nothing is edited", function()
     eq(client.macros[1].body, DEAD)
 end)
 
+test("the macro is made by itself the first time the macros load, and only that once", function()
+    local client = NewClient():login()
+    eq(#client.charMacros, 0, "not before the macros are loaded")
+    client:fire("UPDATE_MACROS")
+    eq(client:macroBody(), ALIVE)
+    ok(client:printedContains("Macro PetCare made for this character"))
+    eq(SavedChar().macroMade, true)
+    client.charMacros = {}
+    client:fire("UPDATE_MACROS")
+    eq(#client.charMacros, 0, "deleted stays deleted")
+    client = NewClient({ savedChar = SavedChar() }):login():fire("UPDATE_MACROS")
+    eq(#client.charMacros, 0, "not after a relog either")
+end)
+
+test("an existing macro or full slots count as the one time", function()
+    local client = NewClient():login()
+    client.macros[1] = { name = "PetCare", icon = 1, body = ALIVE }
+    client:fire("UPDATE_MACROS")
+    eq(#client.printed, 0, "quiet when it is there already")
+    eq(SavedChar().macroMade, true)
+    client = NewClient():login()
+    fill(client.charMacros, 30)
+    fill(client.macros, 120)
+    client:fire("UPDATE_MACROS")
+    ok(client:printedContains("both full"))
+    client.printed = {}
+    client.macros = {}
+    client:fire("UPDATE_MACROS")
+    eq(#client.printed, 0, "said once")
+    eq(#client.macros, 0)
+end)
+
+test("macros loading in combat get the macro once combat ends", function()
+    local client = NewClient():login():enterCombat():fire("UPDATE_MACROS")
+    eq(#client.charMacros, 0)
+    client:leaveCombat()
+    eq(client:macroBody(), ALIVE)
+end)
+
+test("another class never makes the macro", function()
+    local client = NewClient({ class = "MAGE" }):login():fire("UPDATE_MACROS")
+    eq(#client.charMacros, 0)
+    eq(#client.macros, 0)
+end)
+
+test("only the #showtooltip line is rewritten; the player's other lines stay", function()
+    local client = NewClient():login():slash("macro")
+    client.charMacros[1].body = "#ShowTooltip Old\n/click PetCareButton\n/petattack"
+    client:petDies()
+    eq(client:macroBody(), DEAD:gsub("\n.*", "") .. "\n/click PetCareButton\n/petattack")
+end)
+
+test("a macro whose first line is no #showtooltip is left alone", function()
+    local client = NewClient():login():slash("macro")
+    client.charMacros[1].body = "/click PetCareButton"
+    client:petDies()
+    eq(client:macroBody(), "/click PetCareButton")
+    eq(client.macroEdits, 0)
+end)
+
 test("debug traces a macro edit", function()
     local client = NewClient({ savedDB = { debug = true } }):login():slash("macro"):petDies()
     ok(client:printedContains("macro updated"))

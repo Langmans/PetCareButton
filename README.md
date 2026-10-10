@@ -31,10 +31,11 @@ Pick one:
 
 - **A key binding**: Esc > Options > Keybindings > AddOns > Pet Care Button
   > "Mend, revive or call pet".
-- **A macro** on your action bar: `/pcb macro` makes one named `PetCare` for
-  this character (among the account-wide macros only when the character's
-  are full), which you drag from the macro window (`/macro`) onto a bar. It
-  holds:
+- **A macro** on your action bar: the first time you log in on a hunter, the
+  addon makes one named `PetCare` for that character (among the account-wide
+  macros only when the character's are full). Drag it from the macro window
+  (`/macro`) onto a bar. It is made only that once: delete it and it stays
+  gone, and `/pcb macro` makes it again. It holds:
 
   ```
   #showtooltip [@pet,dead] Revive Pet; [nopet] Call Pet; Mend Pet
@@ -43,9 +44,11 @@ Pick one:
 
   Its icon follows the button: while your pet counts as dead the first line
   becomes `#showtooltip [@pet,exists,nodead] Mend Pet; Revive Pet`, so it
-  shows Revive Pet also once the body is gone. The addon rewrites that line
-  outside combat; if your pet dies in combat, the icon catches up when combat
-  ends (the button itself is right all along).
+  shows Revive Pet also once the body is gone. The addon rewrites only that
+  first line, outside combat; lines you add below it stay, and if you remove
+  the `#showtooltip` line the addon leaves the macro alone. If your pet dies
+  in combat, the icon catches up when combat ends (the button itself is
+  right all along).
 
 Shift still forces Revive Pet and Ctrl forces Call Pet, for the rare case
 the button is wrong in combat (see below).
@@ -91,7 +94,7 @@ dead is saved per character. The same settings are chat commands too
 
 - `/pcb` shows what the button does now, the settings and the commands.
 - `/pcb config` (or `/pcb options`) opens the panel.
-- `/pcb macro` makes the `PetCare` macro for this character (outside
+- `/pcb macro` makes the `PetCare` macro for this character again (outside
   combat).
 - `/pcb revive` / `/pcb call`: without a pet, cast Revive Pet / Call Pet
   (outside combat).
@@ -151,9 +154,9 @@ In `.toc` order; all share the addon namespace `ns`.
 - `Button.lua` — the secure button `PetCareButton` and its header
   (`ns.SetupButton`, `ns.SetPetDead`, `ns.PetDead`, `ns.MacroText`), and the
   key binding's names.
-- `Macro.lua` — the `PetCare` macro: `ns.MacroBody`, `ns.CreatePetMacro`
-  and `ns.UpdateMacro`, which keeps its `#showtooltip` line in step with
-  the button.
+- `Macro.lua` — the `PetCare` macro: `ns.TooltipLine`, `ns.MacroBody`,
+  `ns.UpdatedBody`, `ns.CreatePetMacro` and `ns.UpdateMacro`, which keeps
+  its `#showtooltip` line in step with the button.
 - `Alerts.lua` — the toasts (`ns.AlertToast`, `ns.CheckHealth`), learning
   from failed casts, and the event frame (one method per event).
 - `Commands.lua` — `/pcb`: one function per subcommand in a `Commands`
@@ -167,7 +170,7 @@ In `.toc` order; all share the addon namespace `ns`.
 
 Saved: `PetCareButtonDB` (account) holds `duration`, `scale`, `sound`,
 `died`, `nopet`, `low`, `debug` and `pos`, only where they differ from the
-default. `PetCareButtonCharDB` (character) holds `petDead`.
+default. `PetCareButtonCharDB` (character) holds `petDead` and `macroMade`.
 
 ### How the button works
 
@@ -205,13 +208,18 @@ choice is therefore made entirely by secure code:
   `GetNumMacros()`'s character count is under `MAX_CHARACTER_MACROS` (from
   `Constants.MacroConsts`, 30 on Forever; 18 when the client has no such
   constant), otherwise account-wide while there is room.
-- `ns.UpdateMacro` builds the body for `ns.PetDead()` and, when
-  `GetMacroInfo`'s body differs, writes it with `EditMacro(index, nil, nil,
-  body)`. It runs on every `petdead` change (a hook on the header) and on
-  `UPDATE_MACROS`; in combat it registers `PLAYER_REGEN_ENABLED` and runs
-  then. The body comparison keeps the `UPDATE_MACROS` from its own edit from
-  doing anything. Only hunters edit, so another class never rewrites a shared
-  account macro.
+- Made by itself on the first `UPDATE_MACROS` outside combat (the client
+  fires it once the macros are loaded) while `PetCareButtonCharDB.macroMade`
+  is unset; any outcome sets it, so it happens once per character.
+- `ns.UpdateMacro` reads the body with `GetMacroInfo`, and when its first
+  line starts with `#showtooltip` (any case) puts `ns.TooltipLine` for
+  `ns.PetDead()` in its place (`ns.UpdatedBody`), keeping the rest. A changed
+  body is written with `EditMacro(index, nil, nil, body)`. It runs on every
+  `petdead` change (a hook on the header) and on `UPDATE_MACROS`; in combat
+  it registers `PLAYER_REGEN_ENABLED` and runs then. The body comparison
+  keeps the `UPDATE_MACROS` from its own edit from doing anything.
+- Only hunters register `UPDATE_MACROS` (`ns.StartMacro` on `ADDON_LOADED`),
+  so another class never makes or rewrites a shared account macro.
 
 ### How the alerts work
 

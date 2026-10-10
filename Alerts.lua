@@ -171,6 +171,7 @@ function frame:ADDON_LOADED(name)
     self:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
     self:RegisterUnitEvent("UNIT_HEALTH", "pet")
     self:RegisterUnitEvent("UNIT_MAXHEALTH", "pet")
+    ns.StartMacro()
     if InCombatLockdown() then
         setupAfterCombat = true
     else

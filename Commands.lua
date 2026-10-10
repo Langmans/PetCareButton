@@ -152,18 +152,9 @@ function Commands.call()
     SetMode(false, L.MODE_SET_CALL)
 end
 
--- What /pcb macro answers for each outcome of ns.CreatePetMacro.
-local MACRO_ANSWERS = {
-    character = "MACRO_CREATED",
-    account = "MACRO_CREATED_ACCOUNT",
-    exists = "MACRO_EXISTS",
-    full = "MACRO_FULL",
-    combat = "IN_COMBAT",
-}
-
 ---/pcb macro: makes the macro that clicks the button, outside combat.
 function Commands.macro()
-    Print(ns.Format(MACRO_ANSWERS[ns.CreatePetMacro()], ns.MACRO_NAME))
+    Print(ns.MacroAnswer(ns.CreatePetMacro()))
 end
 
 ---/pcb test [dead|nopet|low]: a toast only, whatever the pet is doing.

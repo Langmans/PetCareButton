@@ -32,9 +32,10 @@ ns.DEFAULTS = {
 ns.db = ns.DEFAULTS
 
 ---Saved per character: whether this character's pet is dead, so the button still knows after a
----relog, when the dead pet is no unit the macro conditions can see. Filled on ADDON_LOADED.
+---relog, when the dead pet is no unit the macro conditions can see, and whether the PetCare macro
+---was made once already. Filled on ADDON_LOADED.
 ---@type PetCareButtonCharSettings
-ns.char = { petDead = false }
+ns.char = { petDead = false, macroMade = false }
 
 ---Whether this character is a hunter; set on ADDON_LOADED.
 ns.isHunter = false
@@ -121,6 +122,7 @@ function ns.LoadSettings()
     ---@type PetCareButtonCharSettings
     local char = PetCareButtonCharDB
     char.petDead = char.petDead == true
+    char.macroMade = char.macroMade == true
     ns.char = char
 end
 
