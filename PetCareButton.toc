@@ -1,0 +1,24 @@
+## Interface: 16001
+## Title: PetCareButton
+## Notes: One key for Mend Pet, Revive Pet and Call Pet that knows your pet is dead, even in combat, plus a toast when your hunter pet dies, is missing at the pull or runs low.
+## Author: Langmans
+## Version: 1.0.0
+## SavedVariables: PetCareButtonDB
+## SavedVariablesPerCharacter: PetCareButtonCharDB
+## IconTexture: Interface\Icons\Ability_Hunter_BeastCall
+## X-License: MIT
+## X-Website: https://github.com/Langmans/PetCareButton
+
+Locales\enUS.lua
+Locales\deDE.lua
+Locales\esES.lua
+Locales\frFR.lua
+Locales\koKR.lua
+Locales\ruRU.lua
+Locale.lua
+Core.lua
+Toast.lua
+Button.lua
+Alerts.lua
+Commands.lua
+Options.lua
