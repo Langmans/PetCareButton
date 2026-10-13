@@ -1,5 +1,6 @@
 ## Interface: 16001
 ## Title: PetCareButton
+## Category: Hunter
 ## Notes: One key for Mend Pet, Revive Pet and Call Pet that knows your pet is dead, even in combat, plus a toast when your hunter pet dies, is missing at the pull or runs low.
 ## Author: Langmans
 ## Version: 1.0.0
