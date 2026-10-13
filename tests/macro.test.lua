@@ -1,7 +1,9 @@
--- The PetCare macro: where /pcb macro puts it, and its tooltip line following the button.
+-- The PetCare macro: where /pcb macro puts it, and its cast line following the button.
 
-local ALIVE = "#showtooltip [@pet,dead] Revive Pet; [nopet] Call Pet; Mend Pet\n/click PetCareButton"
-local DEAD = "#showtooltip [@pet,exists,nodead] Mend Pet; Revive Pet\n/click PetCareButton"
+local ALIVE_CAST = "/cast [mod:shift][@pet,dead] Revive Pet; [mod:ctrl][nopet] Call Pet; Mend Pet"
+local DEAD_CAST = "/cast [mod:ctrl] Call Pet; [mod:shift][@pet,dead][nopet] Revive Pet; Mend Pet"
+local ALIVE = "#showtooltip\n" .. ALIVE_CAST
+local DEAD = "#showtooltip\n" .. DEAD_CAST
 
 local function fill(list, count)
     for i = 1, count do
@@ -145,18 +147,29 @@ test("another class never makes the macro", function()
     eq(#client.macros, 0)
 end)
 
-test("only the #showtooltip line is rewritten; the player's other lines stay", function()
+test("only the addon's lines are rewritten; the player's other lines stay", function()
     local client = NewClient():login():slash("macro")
-    client.charMacros[1].body = "#ShowTooltip Old\n/click PetCareButton\n/petattack"
+    client.charMacros[1].body = "#ShowTooltip Old\n/petattack\n" .. ALIVE_CAST .. "\n/say hi"
     client:petDies()
-    eq(client:macroBody(), DEAD:gsub("\n.*", "") .. "\n/click PetCareButton\n/petattack")
+    eq(client:macroBody(), "#showtooltip\n/petattack\n" .. DEAD_CAST .. "\n/say hi")
+end)
+
+test("a macro from the /click version gets the cast line in its place", function()
+    local client = NewClient():login()
+    client.charMacros[1] = {
+        name = "PetCare",
+        icon = 134400,
+        body = "#showtooltip [@pet,dead] Revive Pet; [nopet] Call Pet; Mend Pet\n/click PetCareButton\n/petattack",
+    }
+    client:fire("UPDATE_MACROS")
+    eq(client:macroBody(), ALIVE .. "\n/petattack")
 end)
 
 test("a macro whose first line is no #showtooltip is left alone", function()
     local client = NewClient():login():slash("macro")
-    client.charMacros[1].body = "/click PetCareButton"
+    client.charMacros[1].body = ALIVE_CAST
     client:petDies()
-    eq(client:macroBody(), "/click PetCareButton")
+    eq(client:macroBody(), ALIVE_CAST)
     eq(client.macroEdits, 0)
 end)
 

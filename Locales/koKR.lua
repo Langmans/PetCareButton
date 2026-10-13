@@ -12,7 +12,7 @@ ns.Locales.koKR = {
         REASON_LEARNED_COMBAT = "야수 부르기 실패. 전투 중에는 버튼을 바꿀 수 없습니다: "
             .. "Shift를 누른 채로 동물 되살리기를 쓰세요.",
         HINT_KEY = "%s 키를 누르세요.",
-        HINT_MACRO = "/click PetCareButton 매크로를 누르세요 (/pcb macro로 만들 수 있습니다).",
+        HINT_MACRO = "PetCare 매크로를 누르세요 (/pcb macro로 만들 수 있습니다).",
 
         REVIVE_FAILED = "동물 되살리기 실패, 죽은 소환수가 없습니다: 버튼이 다시 야수 부르기를 시전합니다.",
 
@@ -60,7 +60,7 @@ ns.Locales.koKR = {
             .. "야수 부르기. 소환수가 죽었다는 것을 전투 중에도, 다시 접속한 뒤에도 기억하므로 시체가 "
             .. "사라진 뒤에 Shift가 더 이상 필요 없습니다. Shift는 여전히 동물 되살리기를, Ctrl은 야수 "
             .. "부르기를 강제합니다.\n\n"
-            .. "단축키(Esc > 설정 > 단축키 > 애드온)나 /click PetCareButton 매크로로 누르세요. 알림을 끌어서 "
+            .. "단축키(Esc > 설정 > 단축키 > 애드온)나 /pcb macro로 만든 매크로로 누르세요. 알림을 끌어서 "
             .. "옮기고, 오른쪽 클릭으로 닫고, 마우스를 올려 유지할 수 있습니다. 명령어는 /pcb를 입력하세요.",
         OPTION_SETTINGS = "설정",
         OPTION_DIED = "소환수가 죽으면 알림",

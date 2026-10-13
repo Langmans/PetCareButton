@@ -38,17 +38,17 @@ Pick one:
   gone, and `/pcb macro` makes it again. It holds:
 
   ```
-  #showtooltip [@pet,dead] Revive Pet; [nopet] Call Pet; Mend Pet
-  /click PetCareButton
+  #showtooltip
+  /cast [mod:shift][@pet,dead] Revive Pet; [mod:ctrl][nopet] Call Pet; Mend Pet
   ```
 
-  Its icon follows the button: while your pet counts as dead the first line
-  becomes `#showtooltip [@pet,exists,nodead] Mend Pet; Revive Pet`, so it
-  shows Revive Pet also once the body is gone. The addon rewrites only that
-  first line, outside combat; lines you add below it stay, and if you remove
-  the `#showtooltip` line the addon leaves the macro alone. If your pet dies
-  in combat, the icon catches up when combat ends (the button itself is
-  right all along).
+  The `/cast` line follows the button: while your pet counts as dead it
+  becomes the button's dead text (see below), so the macro casts Revive Pet
+  also once the body is gone. The addon rewrites only that line, outside
+  combat; lines you add stay, and if you remove the `#showtooltip` line the
+  addon leaves the macro alone. If your pet dies in combat and its body
+  vanishes before the fight ends, the macro casts Call Pet until combat ends:
+  hold Shift, or use the key binding, which is right all along.
 
 Shift still forces Revive Pet and Ctrl forces Call Pet, for the rare case
 the button is wrong in combat (see below).
@@ -157,9 +157,9 @@ In `.toc` order; all share the addon namespace `ns`.
 - `Button.lua` — the secure button `PetCareButton` and its header
   (`ns.SetupButton`, `ns.SetPetDead`, `ns.PetDead`, `ns.MacroText`), and the
   key binding's names.
-- `Macro.lua` — the `PetCare` macro: `ns.TooltipLine`, `ns.MacroBody`,
-  `ns.UpdatedBody`, `ns.CreatePetMacro` and `ns.UpdateMacro`, which keeps
-  its `#showtooltip` line in step with the button.
+- `Macro.lua` — the `PetCare` macro: `ns.MacroBody`, `ns.UpdatedBody`,
+  `ns.CreatePetMacro` and `ns.UpdateMacro`, which keeps its `/cast` line in
+  step with the button.
 - `Alerts.lua` — the toasts (`ns.AlertToast`, `ns.CheckHealth`), learning
   from failed casts, and the event frame (one method per event).
 - `Commands.lua` — `/pcb`: one function per subcommand in a `Commands`
@@ -199,9 +199,11 @@ choice is therefore made entirely by secure code:
   `PetCareButtonCharDB` (also when a snippet set it in combat), and another
   feeds `state-pet` to the toasts.
 - The button is registered for `AnyUp` and `AnyDown` with `useOnKeyDown`
-  false, so it acts on the release: a `/click` from a macro arrives as a
-  release, and with `ActionButtonUseKeyDown` on a button waiting for the
-  press would never fire from a macro.
+  false, so it acts on the release; the key binding sends both.
+- The macro does not `/click` the button. Whether a `/click` reaches a
+  button as a press or a release depends on how the macro was triggered,
+  and the button acts on only one of the two. Like Buffet's food macros, the
+  macro carries the `/cast` line itself, rewritten outside combat.
 - Everything that touches the secure frames happens in `ns.SetupButton`, on
   `ADDON_LOADED`, or after combat when the addon loaded in combat.
 
@@ -215,8 +217,10 @@ choice is therefore made entirely by secure code:
   fires it once the macros are loaded) while `PetCareButtonCharDB.macroMade`
   is unset; any outcome sets it, so it happens once per character.
 - `ns.UpdateMacro` reads the body with `GetMacroInfo`, and when its first
-  line starts with `#showtooltip` (any case) puts `ns.TooltipLine` for
-  `ns.PetDead()` in its place (`ns.UpdatedBody`), keeping the rest. A changed
+  line starts with `#showtooltip` (any case) makes that a bare
+  `#showtooltip` and puts `ns.MacroText(ns.PetDead())` in place of every
+  line the addon wrote: either cast text, or a `/click PetCareButton` line
+  (`ns.UpdatedBody`). Other lines stay. A changed
   body is written with `EditMacro(index, nil, nil, body)`. It runs on every
   `petdead` change (a hook on the header) and on `UPDATE_MACROS`; in combat
   it registers `PLAYER_REGEN_ENABLED` and runs then. The body comparison
@@ -289,7 +293,7 @@ git worktree add "<WoW>/Interface/AddOns/PetCareButton" live
 git -C "<WoW>/Interface/AddOns/PetCareButton" merge --ff-only main
 ```
 
-What the simulation cannot show — whether `/click` from a macro fires the
+What the simulation cannot show — whether the key binding fires the
 button, which global string is "Your pet is dead", and whether pet health is
 secret in combat — is what DevProbes' PetRevive probe and the debug trace are
 for.

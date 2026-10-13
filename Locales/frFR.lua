@@ -12,7 +12,7 @@ ns.Locales.frFR = {
         REASON_LEARNED_COMBAT = "Appel du familier a échoué. En combat le bouton ne peut pas changer : "
             .. "maintenez Maj pour Ressusciter le familier.",
         HINT_KEY = "Appuyez sur %s.",
-        HINT_MACRO = "Utilisez votre macro /click PetCareButton (/pcb macro en crée une).",
+        HINT_MACRO = "Utilisez votre macro PetCare (/pcb macro en crée une).",
 
         REVIVE_FAILED = "Ressusciter le familier a échoué, il n'y a donc pas de familier mort : "
             .. "le bouton lance de nouveau Appel du familier.",
@@ -63,7 +63,7 @@ ns.Locales.frFR = {
             .. "familier est mort, même en combat et après une reconnexion : plus besoin de Maj quand le corps "
             .. "a disparu. Maj force toujours Ressusciter le familier, Ctrl force Appel du familier.\n\n"
             .. "Utilisez-le avec le raccourci (Échap > Options > Raccourcis > AddOns) ou avec une macro "
-            .. "contenant /click PetCareButton. Faites glisser une alerte pour la déplacer, clic droit pour la "
+            .. "créée par /pcb macro. Faites glisser une alerte pour la déplacer, clic droit pour la "
             .. "fermer, survolez-la pour la garder. Tapez /pcb pour les commandes.",
         OPTION_SETTINGS = "Réglages",
         OPTION_DIED = "Alerte quand mon familier meurt",

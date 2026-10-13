@@ -12,7 +12,7 @@ ns.Locales.esES = {
         REASON_LEARNED_COMBAT = "Llamar a mascota falló. En combate el botón no puede cambiar: "
             .. "mantén Mayús para Revivir mascota.",
         HINT_KEY = "Pulsa %s.",
-        HINT_MACRO = "Pulsa tu macro /click PetCareButton (/pcb macro crea una).",
+        HINT_MACRO = "Pulsa tu macro PetCare (/pcb macro crea una).",
 
         REVIVE_FAILED = "Revivir mascota falló, así que no hay mascota muerta: el botón vuelve a lanzar Llamar a mascota.",
 
@@ -61,8 +61,8 @@ ns.Locales.esES = {
             .. "muerta, Llamar a mascota cuando no está. Recuerda que tu mascota murió, también en combate y "
             .. "tras volver a conectar, así que ya no necesitas Mayús cuando el cuerpo desaparece. Mayús sigue "
             .. "forzando Revivir mascota, Ctrl fuerza Llamar a mascota.\n\n"
-            .. "Púlsalo con el atajo (Esc > Opciones > Atajos de teclado > Accesorios) o con una macro con "
-            .. "/click PetCareButton. Arrastra un aviso para moverlo, clic derecho para cerrarlo, pasa el "
+            .. "Púlsalo con el atajo (Esc > Opciones > Atajos de teclado > Accesorios) o con la macro de "
+            .. "/pcb macro. Arrastra un aviso para moverlo, clic derecho para cerrarlo, pasa el "
             .. "ratón por encima para mantenerlo. Escribe /pcb para ver los comandos.",
         OPTION_SETTINGS = "Opciones",
         OPTION_DIED = "Aviso cuando muere mi mascota",

@@ -582,7 +582,7 @@ function NewClient(opts)
         local button = self.button
         if button.attributes.type == nil then return nil end
         assert(button.attributes.type == "macro", "the button runs a macro")
-        assert(button.attributes.useOnKeyDown == false, "the button acts on release, as /click sends it")
+        assert(button.attributes.useOnKeyDown == false, "the button acts on the key binding's release")
         local text = button.attributes.macrotext
         if not text then return nil end
         local options = assert(text:match("^/cast (.*)$"), "the macro is one /cast line")

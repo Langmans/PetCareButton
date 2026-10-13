@@ -1,5 +1,5 @@
 <Bindings>
     <!-- Esc > Options > Keybindings > AddOns. The names shown there are set in Commands.lua. A CLICK
-         binding presses the secure button itself, the same as /click PetCareButton in a macro. -->
+         binding presses the secure button itself, which sends a press and a release. -->
     <Binding name="CLICK PetCareButton:LeftButton" header="PETCAREBUTTON" category="ADDONS"/>
 </Bindings>

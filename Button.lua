@@ -1,6 +1,6 @@
 local _, ns = ...
 
--- The secure button behind `/click PetCareButton` and the key binding. An addon cannot cast a
+-- The secure button behind the key binding. An addon cannot cast a
 -- spell itself, and in combat it cannot change what a button does either; only secure code can.
 -- So the choice between Mend Pet, Revive Pet and Call Pet is made by macro conditions plus one
 -- remembered fact, all inside the secure environment:
@@ -18,9 +18,9 @@ local _, ns = ...
 -- login, when a cast failed and showed whether the pet is dead, and from /pcb revive and call.
 -- `petdead` is mirrored into PetCareButtonCharDB, so a relog keeps it.
 --
--- The button acts on the key's release (useOnKeyDown false): a `/click` from a macro arrives as
--- a release, and with ActionButtonUseKeyDown on, a button that waits for the press would never
--- fire from a macro.
+-- The button acts on the key's release (useOnKeyDown false); a key binding sends both. The
+-- PetCare macro (Macro.lua) does not click this button: it carries the same /cast line itself.
+-- The macro text is also what the macro writes, so the binding and the macro cast alike.
 
 local L = ns.L
 

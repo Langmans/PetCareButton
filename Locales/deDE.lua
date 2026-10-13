@@ -12,7 +12,7 @@ ns.Locales.deDE = {
         REASON_LEARNED_COMBAT = "Tier rufen ist fehlgeschlagen. Im Kampf kann die Taste nicht umschalten: "
             .. "halte Umschalt für Tier wiederbeleben.",
         HINT_KEY = "Drücke %s.",
-        HINT_MACRO = "Drücke dein /click PetCareButton-Makro (/pcb macro erstellt eins).",
+        HINT_MACRO = "Drücke dein PetCare-Makro (/pcb macro erstellt eins).",
 
         REVIVE_FAILED = "Tier wiederbeleben ist fehlgeschlagen, es gibt also keinen toten Begleiter: "
             .. "die Taste wirkt wieder Tier rufen.",
@@ -63,7 +63,7 @@ ns.Locales.deDE = {
             .. "gestorben ist, auch im Kampf und nach einem Relog, also brauchst du kein Umschalt mehr, wenn "
             .. "der Körper weg ist. Umschalt erzwingt weiterhin Tier wiederbeleben, Strg Tier rufen.\n\n"
             .. "Drück sie mit der Tastenbelegung (Esc > Optionen > Tastaturbelegung > AddOns) oder mit einem "
-            .. "Makro mit /click PetCareButton. Zieh eine Anzeige, um sie zu verschieben, Rechtsklick schließt "
+            .. "Makro von /pcb macro. Zieh eine Anzeige, um sie zu verschieben, Rechtsklick schließt "
             .. "sie, mit der Maus darüber bleibt sie stehen. Gib /pcb für die Befehle ein.",
         OPTION_SETTINGS = "Einstellungen",
         OPTION_DIED = "Anzeige, wenn mein Begleiter stirbt",

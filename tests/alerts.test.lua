@@ -13,7 +13,7 @@ end)
 
 test("without a key binding the hint names the macro", function()
     local client = NewClient():login():petDies()
-    eq(client.toast.Hint.text, "Press your /click PetCareButton macro (/pcb macro makes one).")
+    eq(client.toast.Hint.text, "Press your PetCare macro (/pcb macro makes one).")
 end)
 
 test("a pet that lives again takes the dead toast away", function()

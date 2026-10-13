@@ -19,7 +19,7 @@ ns.Locales.enUS = {
         REASON_LEARNED = "Call Pet failed: the button casts Revive Pet now.",
         REASON_LEARNED_COMBAT = "Call Pet failed. In combat the button cannot switch: hold Shift for Revive Pet.",
         HINT_KEY = "Press %s.",
-        HINT_MACRO = "Press your /click PetCareButton macro (/pcb macro makes one).",
+        HINT_MACRO = "Press your PetCare macro (/pcb macro makes one).",
 
         -- Chat.
         REVIVE_FAILED = "Revive Pet failed, so there is no dead pet: the button casts Call Pet again.",
@@ -75,7 +75,7 @@ ns.Locales.enUS = {
             .. "relog, so you no longer need Shift once the body is gone. Shift still forces Revive Pet, "
             .. "Ctrl forces Call Pet.\n\n"
             .. "Press it with the key binding (Esc > Options > Keybindings > AddOns) or with a macro "
-            .. "holding /click PetCareButton. Drag a toast to move it, right-click to close it, hover "
+            .. "made with /pcb macro. Drag a toast to move it, right-click to close it, hover "
             .. "to keep it up. Type /pcb for the commands.",
         OPTION_SETTINGS = "Settings",
         OPTION_DIED = "Toast when my pet dies",

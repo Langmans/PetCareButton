@@ -152,7 +152,7 @@ function Commands.call()
     SetMode(false, L.MODE_SET_CALL)
 end
 
----/pcb macro: makes the macro that clicks the button, outside combat.
+---/pcb macro: makes the PetCare macro, outside combat.
 function Commands.macro()
     Print(ns.MacroAnswer(ns.CreatePetMacro()))
 end

@@ -2,7 +2,7 @@
 
 ## 1.0.0 - not released yet
 
-- One key (a key binding, or a macro with `/click PetCareButton`) for Mend
+- One key (a key binding, or the `PetCare` macro) for Mend
   Pet, Revive Pet and Call Pet. It remembers that your pet died, also in
   combat, once the body is gone and after a relog, so you no longer hold
   Shift. Shift still forces Revive Pet, Ctrl forces Call Pet.
@@ -13,10 +13,11 @@
   play your pet's own sounds: its death sound, its critical wound cry, its
   attack call (`/pcb sound family|warning|off`).
 - The `PetCare` macro is made once per hunter, at the first login (account-wide
-  only when the character macros are full); `/pcb macro` makes it again. Its
-  icon follows the button, also once a dead pet's body is gone; after a death
-  in combat it catches up when combat ends. Only its `#showtooltip` line is
-  rewritten, so lines you add stay.
+  only when the character macros are full); `/pcb macro` makes it again. It
+  holds the `/cast` line itself, like Buffet's macros, and that line follows
+  the button, also once a dead pet's body is gone; after a death in combat it
+  catches up when combat ends. Only the addon's own lines are rewritten, so
+  lines you add stay.
 - `/pcb revive` and `/pcb call` set the button by hand.
 - Options panel under Esc > Options > AddOns with all settings; `/pcb` lists
   the commands.
