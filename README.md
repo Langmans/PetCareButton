@@ -1,5 +1,9 @@
 # Pet Care Button
 
+[![Release](https://img.shields.io/github/v/release/Langmans/PetCareButton?include_prereleases&sort=semver)](https://github.com/Langmans/PetCareButton/releases)
+![WoW: Forever](https://img.shields.io/badge/WoW-Forever%20%2816001%29-c79c6e)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow)](https://github.com/Langmans/PetCareButton/blob/main/LICENSE)
+
 One key for your hunter pet: **Mend Pet** while it lives, **Revive Pet**
 when it is dead, **Call Pet** when it is not out. The usual macro for this
 is
